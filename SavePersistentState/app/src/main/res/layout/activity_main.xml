@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.60" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_text"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_color"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <TextView
+        android:id="@+id/tv_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_size"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text" />
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/size"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_all_caps"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_color" />
+
+    <TextView
+        android:id="@+id/tv_all_caps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_caps"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_size" />
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_text"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        android:text="@string/default_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_text"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <EditText
+        android:id="@+id/et_color"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_color"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_color"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <SeekBar
+        android:id="@+id/sb_size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="64"
+        android:min="14"
+        android:progress="18"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_size"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/tv_size" />
+
+    <CheckBox
+        android:id="@+id/cb_all_caps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_all_caps"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

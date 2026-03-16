@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Declarative Hello With Button</string>
+    <string name="press_me">Press me</string>
+    <string name="plus_one">+1</string>
+    <string name="please_press">Press the button, please</string>
+    <string name="good_job">Good job!</string>
+    <string name="int_number">%1$d</string>
+</resources>

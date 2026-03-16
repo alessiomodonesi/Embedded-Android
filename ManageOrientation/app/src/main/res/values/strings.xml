@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Manage Orientation</string>
+    <string name="port">Portrait</string>
+    <string name="land">Landscape</string>
+</resources>

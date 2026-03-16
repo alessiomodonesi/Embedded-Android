@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/activity1Fragment">
+
+    <fragment
+        android:id="@+id/activity1Fragment"
+        android:name="it.unipd.dei.esp2021.switchactivity.Activity1Fragment"
+        android:label="fragment_1"
+        tools:layout="@layout/fragment_1" >
+        <action
+            android:id="@+id/action_activity1Fragment_to_activity2"
+            app:destination="@id/activity2" />
+    </fragment>
+    <activity
+        android:id="@+id/activity2"
+        android:name="it.unipd.dei.esp2021.switchactivity.Activity2"
+        android:label="activity_2"
+        tools:layout="@layout/activity_2" />
+</navigation>

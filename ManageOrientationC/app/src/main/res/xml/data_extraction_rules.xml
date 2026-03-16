@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Data extraction rules file. See
+    https://developer.android.com/about/versions/12/backup-restore#xml-changes
+    for details.
+-->
+<data-extraction-rules>
+    <!-- Use <include> and <exclude> to control what is backed up.
+    If your configuration file specifies both elements,
+    then the backup contains everything captured by the <include> elements
+    minus the resources named in the <exclude> elements.
+    In other words, <exclude> takes precedence. -->
+    <cloud-backup disableIfNoEncryptionCapabilities="true">
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+        <exclude domain="root" path="." />
+    </cloud-backup>
+    <!-- If there are no rules for a particular backup mode,
+    such as if the <device-transfer> section is missing,
+    that mode is fully enabled for all content
+    except for no-backup and cache directories. -->
+    <!--
+    <device-transfer>
+        <include .../>
+        <exclude .../>
+    </device-transfer>
+    -->
+</data-extraction-rules>
