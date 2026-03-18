@@ -10,7 +10,7 @@
     <!-- match_parent: occupo tutto lo spazio del container in cui vengo inserito -->
 
     <Button
-        android:id="@+id/bu"
+        android:id="@+id/bu1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/press_me"
@@ -19,13 +19,20 @@
         <!-- wrap_content: dimensione sufficiente a contenere il testo -->
         <!-- Android ridisegna l'UI quando cambia il contenuto -->
 
+    <Button
+        android:id="@+id/bu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bu1" />
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/please_press"
-        app:layout_constraintStart_toEndOf="@+id/bu"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bu" />
+        app:layout_constraintStart_toEndOf="@+id/bu1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/bu1" />
         <!-- i nomi devono essere concordi con il cs per poter utilizzare la reference -->
 </androidx.constraintlayout.widget.ConstraintLayout>

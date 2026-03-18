@@ -33,13 +33,23 @@ class MainActivity : AppCompatActivity()
         // Once and for all: Kotlin synthetics are not a recommended practice
         // (https://proandroiddev.com/the-argument-over-kotlin-synthetics-735305dd4ed0)
         val tv : TextView = findViewById(R.id.tv) // public static abstract int tv = 1000000
-        val bu : Button = findViewById(R.id.bu) // il nome deve essere uguale a quello contenuto nel file XML
+        val bu1 : Button = findViewById(R.id.bu1) // il nome deve essere uguale a quello contenuto nel file XML
+        val bu2 : Button = findViewById(R.id.bu2)
         // in R ho la sezione con le reference di tutte le risorse, devo solo recuperata l'indice della risorsa
 
 
         // Set the action to be performed when the button is pressed
-        bu.setOnClickListener { // Perform action on click
+        bu1.setOnClickListener { // Perform action on click
             tv.text = getString(R.string.good_job)
+        }
+
+        bu2.setOnClickListener {
+            val i : Int = try { // lambda function
+                tv.text.toString().toInt() // provo a convertire in intero
+            } catch (e: NumberFormatException) { // in caso di eccezione setto a -1
+                -1
+            }
+            tv.text = "${i + 1}"
         }
 
         // Ensure that system bars remain visible regardless of the background color.
