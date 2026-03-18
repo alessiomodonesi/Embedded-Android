@@ -27,23 +27,38 @@ class MainActivity : AppCompatActivity()
         tv.text = "Press the button, please" // chiamo il setter
 
         // Create the Button
-        val bu = Button(this)
-        bu.text = "Press me" // oggetti simili -> funzioni simili, es. ".text"
+        val bu1 = Button(this)
+        bu1.text = "Press me" // oggetti simili -> funzioni simili, es. ".text"
+
+        // Create the second Button
+        val bu2 = Button(this)
+        bu2.text = "+1"
 
         // Set the action to be performed when the button is pressed
-        bu.setOnClickListener { // Perform action on click
-            tv.text = "Good job!" // lambda function
+        bu1.setOnClickListener {
+            tv.text = "Good Job!"
+        }
+
+        bu2.setOnClickListener {
+            val i : Int = try { // lambda function
+                tv.text.toString().toInt() // provo a convertire in intero
+            } catch (e: NumberFormatException) { // in caso di eccezione setto a -1
+                -1
+            }
+            tv.text = "${i + 1}"
         }
 
         // All UI elements must have IDs to use ConstraintSet
-        bu.id = View.generateViewId() // ConstraintLayout ha bisogno di IDs per gli oggetti
+        bu1.id = View.generateViewId() // ConstraintLayout ha bisogno di IDs per gli oggetti
+        bu2.id = View.generateViewId()
         tv.id = View.generateViewId()
 
         // Create the layout (contenitore degli oggetti)
         val myLayout = ConstraintLayout(this)
 
         // Add the UI elements to the layout
-        myLayout.addView(bu) // Button e Textview sono derivate da View
+        myLayout.addView(bu1) // Button e Textview sono derivate da View
+        myLayout.addView(bu2)
         myLayout.addView(tv)
 
         // Add constraints to the layout so that UI elements are positioned correctly
@@ -54,14 +69,18 @@ class MainActivity : AppCompatActivity()
         // più vincoli in combo determinano dove un oggetto deve stare
 
         // collego il lato sx del bottone col lato sx del container (parent)
-        mySet.connect(bu.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+        mySet.connect(bu1.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
         // collego il top del bottone col top del container -> il bottone sta in alto a sinistra
-        mySet.connect(bu.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+        mySet.connect(bu1.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+
+        // positioning di bu2
+        mySet.connect(bu2.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+        mySet.connect(bu2.id, ConstraintSet.TOP, bu1.id, ConstraintSet.BOTTOM)
 
         // lato sx del text con il lato destro del button
-        mySet.connect(tv.id, ConstraintSet.LEFT, bu.id, ConstraintSet.RIGHT)
+        mySet.connect(tv.id, ConstraintSet.LEFT, bu1.id, ConstraintSet.RIGHT)
         // allineo text e button sulla stessa linea orizzontale (baseline)
-        mySet.connect(tv.id, ConstraintSet.BASELINE, bu.id, ConstraintSet.BASELINE)
+        mySet.connect(tv.id, ConstraintSet.BASELINE, bu1.id, ConstraintSet.BASELINE)
 
         // applico i vincoli a tutto il layout (prima li specifico tutti)
         mySet.applyTo(myLayout)
