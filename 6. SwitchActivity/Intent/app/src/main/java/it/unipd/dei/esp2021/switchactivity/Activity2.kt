@@ -1,6 +1,7 @@
 package it.unipd.dei.esp2021.switchactivity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +26,8 @@ import it.unipd.dei.esp2021.switchactivity.ui.theme.SwitchActivityTheme
 
 class Activity2: ComponentActivity()
 {
+    val mTAG : String = this.javaClass.simpleName
+
     // Called when the activity is first created
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -47,6 +50,47 @@ class Activity2: ComponentActivity()
                 }
             }
         }
+    }
+
+    override fun onStart()
+    {
+        super.onStart()
+        Log.v(mTAG, "onStart called")
+    }
+
+    override fun onRestart()
+    {
+        super.onRestart()
+        Log.v(mTAG, "onRestart called")
+    }
+
+    override fun onResume()
+    {
+        super.onResume()
+        Log.v(mTAG, "onResume called")
+    }
+
+    override fun onPause()
+    {
+        super.onPause()
+        Log.v(mTAG, "onPause called")
+    }
+
+    override fun onStop()
+    {
+        super.onStop()
+        Log.v(mTAG, "onStop called")
+    }
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+        Log.v(mTAG, "onDestroy called")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.v(mTAG, "onSaveInstanceState called")
     }
 }
 
