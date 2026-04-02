@@ -31,11 +31,12 @@ class MainActivity : ComponentActivity() {
                                 onStartClicked = { navController.navigate("message") }
                             )
                         }
-
+                        
                         composable("message") {
-                            message = messageScreen(
-                                goEncryptScreen = { navController.navigate("encrypt") }
-                            )
+                            MessageScreen { msg ->
+                                message = msg
+                                navController.navigate("encrypt")
+                            }
                         }
 
                         composable("encrypt") {

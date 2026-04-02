@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import kotlin.math.max
 
 @Composable
-fun messageScreen(goEncryptScreen: () -> Unit) : String {
+fun MessageScreen(goEncryptScreen: (String) -> Unit) {
     var message by rememberSaveable { mutableStateOf("") }
 
     Column(
@@ -48,10 +48,8 @@ fun messageScreen(goEncryptScreen: () -> Unit) : String {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = goEncryptScreen) {
+        Button(onClick = { goEncryptScreen(message) }) {
             Text(text = stringResource(R.string.next))
         }
     }
-
-    return message
 }
