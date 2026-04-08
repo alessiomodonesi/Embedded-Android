@@ -48,7 +48,9 @@ fun MessageScreen(goEncryptScreen: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = { goEncryptScreen(message) }) {
+        Button(
+            onClick = { goEncryptScreen(message) }
+        ) {
             Text(text = stringResource(R.string.next))
         }
     }

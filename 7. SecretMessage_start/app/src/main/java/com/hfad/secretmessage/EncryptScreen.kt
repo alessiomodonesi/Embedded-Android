@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun EncryptScreen(messageCrypt: String, goHomeScreen: () -> Unit) {
+fun EncryptScreen(messageCrypt: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,9 +43,5 @@ fun EncryptScreen(messageCrypt: String, goHomeScreen: () -> Unit) {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-
-        Button(onClick = goHomeScreen) {
-            Text(text = "Go Back")
-        }
     }
 }

@@ -31,19 +31,20 @@ class MainActivity : ComponentActivity() {
                                 onStartClicked = { navController.navigate("message") }
                             )
                         }
-                        
+
                         composable("message") {
                             MessageScreen { msg ->
                                 message = msg
-                                navController.navigate("encrypt")
+                                navController.navigate("encrypt") {
+                                    popUpTo("welcome")
+                                }
+                                // il 2o parametro è il builder, che fornisce le opzioni di navigazione
+                                // con la sintassi kotlin lo inserisco come parametro della funzione
                             }
                         }
 
                         composable("encrypt") {
-                            EncryptScreen(
-                                messageCrypt = message,
-                                goHomeScreen = { navController.popBackStack("welcome", false) }
-                            )
+                            EncryptScreen(messageCrypt = message)
                         }
                     }
                 }
