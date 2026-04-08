@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+    Since API level 33, apps wanting to send non-exempt (including
+    Foreground Services (FGS)) notifications must request the
+    POST_NOTIFICATIONS permission.
+    This is a run-time (aka dangerous) permission, so it must be
+    granted by the user.
+    If the notification permission has not been granted (default),
+    the user sees notices related to foreground services in the
+    Foreground Services (FGS) Task Manager but does not see them in the
+    notification drawer.
+    https://developer.android.com/develop/ui/views/notifications/notification-permission
+    -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+    Since API level 28, an app requires permission to run a foreground service.
+    Since API level 34, an additional permission is required for media playback.
+    These are normal permissions, so the system automatically grants them.
+    https://developer.android.com/develop/background-work/services/fg-service-types
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SimpleBGPlayer">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- The mediaPlayback value for the foregroundServiceType attribute
+        makes the system show the notification immediately in Android 12+ -->
+        <service
+            android:name=".PlayerService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+    </application>
+
+</manifest>
