@@ -1,5 +1,6 @@
 package it.unipd.dei.esp2021.savepersistentstate
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue.COMPLEX_UNIT_SP
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity()
 {
     // Class constants
     companion object {
+        /* * TIP: PERSISTENT STATE
+         * Queste chiavi verranno usate per salvare le preferenze nelle SharedPreferences.
+         * Lo stato persistente deve essere preservato tra diverse esecuzioni dell'app
+         */
         private const val KEY_TEXT_COLOR = "editTextValue"
         private const val KEY_TEXT_SIZE = "seekBarValue"
         private const val KEY_TEXT_ALL_CAPS = "checkBoxValue"
@@ -47,10 +52,13 @@ class MainActivity : AppCompatActivity()
         sbSize = findViewById(R.id.sb_size)
         cbAllCaps = findViewById(R.id.cb_all_caps)
 
-        // Retrieve a SharedPreferences object with data that are private to this activity
+        /* * SOLUZIONE DI PIATTAFORMA: SharedPreferences
+         * Recupera un oggetto SharedPreferences per dati privati a questa activity
+         * A differenza del Bundle di istanza, questi dati sono salvati su disco
+         */
         val preferences = getPreferences(MODE_PRIVATE)
 
-        // Set UI state according to retrieved data
+        // Imposta lo stato della UI in base ai dati recuperati (valori di default se mancano)
         etColor.setText(preferences.getString(KEY_TEXT_COLOR, "FF669900"))
         sbSize.progress = preferences.getInt(KEY_TEXT_SIZE, 18)
         cbAllCaps.isChecked = preferences.getBoolean(KEY_TEXT_ALL_CAPS, false)
@@ -61,13 +69,9 @@ class MainActivity : AppCompatActivity()
         etText.setOnEditorActionListener { v, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-                    // Update text
                     updateText()
-                    // Hide keyboard
-                    val imm =
-                        v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    val imm = v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
-                    // Give up focus
                     v.clearFocus()
                     true
                 }
@@ -79,13 +83,9 @@ class MainActivity : AppCompatActivity()
         etColor.setOnEditorActionListener { v, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-                    // Update text
                     updateText()
-                    // Hide keyboard
-                    val imm =
-                        v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    val imm = v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
-                    // Give up focus
                     v.clearFocus()
                     true
                 }
@@ -96,24 +96,16 @@ class MainActivity : AppCompatActivity()
         // New text size
         sbSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                // Update text
                 updateText()
             }
-
-            // OnSeekBarChangeListener is an interface,
-            // so an implementation must be provided for all the methods
             override fun onStartTrackingTouch(seek: SeekBar) = Unit
             override fun onStopTrackingTouch(seek: SeekBar) = Unit
         })
 
         // New value for the "all caps" property
         cbAllCaps.setOnCheckedChangeListener { _, _ ->
-            // Update text
             updateText()
         }
-
-        // Ensure that system bars remain visible regardless of the background color:
-        // done via XML styling
     }
 
     // Called every time the activity becomes active and ready to receive user input
@@ -123,22 +115,29 @@ class MainActivity : AppCompatActivity()
         updateText()
     }
 
-    // Called every time the user no longer actively interacts with the activity,
-    // but it is still visible on screen. The counterpart to onResume()
+    /* * TIP: SALVATAGGIO STATO PERSISTENTE
+     * Lo stato persistente deve essere salvato nel metodo onPause().
+     * onSaveInstanceState() non fa parte dei callback del ciclo di vita garantiti
+     * in ogni situazione di chiusura.
+     */
+    @SuppressLint("UseKtx")
     override fun onPause()
     {
         super.onPause()
 
-        // Store values between instances here
+        // Ottiene l'editor per modificare le SharedPreferences
         val preferences = getPreferences(MODE_PRIVATE)
         val editor = preferences.edit()
 
-        // Store relevant status of UI objects that are part of the persistent state
+        /* * Salvataggio delle proprietà (colore, dimensione, caps)
+         * Nota: in questo esempio specifico del PDF, il testo inserito (etText)
+         * NON viene salvato come persistente, ma solo le sue proprietà.
+         */
         editor.putString(KEY_TEXT_COLOR, etColor.text.toString())
         editor.putInt(KEY_TEXT_SIZE, sbSize.progress)
         editor.putBoolean(KEY_TEXT_ALL_CAPS, cbAllCaps.isChecked)
 
-        // Commit to storage synchronously
+        // Conferma i cambiamenti in modo asincrono (apply) o sincrono (commit)
         editor.apply()
     }
 
@@ -148,7 +147,7 @@ class MainActivity : AppCompatActivity()
         tv.text = etText.text
         // Parse the hex ARGB color string; fall back to gray on invalid input
         tv.setTextColor(try { Integer.parseUnsignedInt(etColor.text.toString(), 16) }
-                        catch(e: Exception) { Color.GRAY })
+        catch(e: Exception) { Color.GRAY })
         tv.setTextSize(COMPLEX_UNIT_SP, sbSize.progress.toFloat())
         tv.isAllCaps = cbAllCaps.isChecked
     }
