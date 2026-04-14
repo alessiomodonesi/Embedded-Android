@@ -11,6 +11,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 
+/**
+ * MainActivity: Gestisce l'interfaccia utente (UI) dell'app
+ * Un'app può contenere diverse Activity, che sono ampiamente indipendenti
+ */
 class MainActivity : AppCompatActivity()
 {
     // Class variables
@@ -18,29 +22,28 @@ class MainActivity : AppCompatActivity()
     private lateinit var bu : Button
     private lateinit var bu2 : Button
 
-    // Called when the activity is first created
+    // Chiamato quando l'activity viene creata per la prima volta
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
 
         // Enable edge-to-edge display on API level < 35.
-        // Must be done programmatically because it depends on the Android version at runtime
         WindowCompat.enableEdgeToEdge(window)
 
-        // Display the layout
+        // Visualizza il layout
         setContentView(R.layout.activity_main)
 
-        // Get references to UI objects
-        // Do it AFTER setContentView()! Before setContentView()
-        // the objects have not been instantiated yet
-        // Once and for all: Kotlin synthetics are not a recommended practice
-        // (https://proandroiddev.com/the-argument-over-kotlin-synthetics-735305dd4ed0)
+        // Ottiene i riferimenti agli oggetti UI dopo setContentView()
         tv = findViewById(R.id.tv)
         bu = findViewById(R.id.bu)
         bu2 = findViewById(R.id.bu2)
 
-        // Restore TextView state from the saved instance state
+        /* * TIP: RIPRISTINO DELLO STATO DELL'ISTANZA (INSTANCE STATE)
+         * Se l'activity è stata uccisa e ricreata dal sistema (es. rotazione schermo),
+         * il nuovo oggetto MainActivity eredita lo stato dal bundle savedInstanceState
+         */
         if (savedInstanceState != null) {
+            // Recupera la stringa precedentemente salvata con la chiave "strTV"
             val strValue = savedInstanceState.getString("strTV")
             if (strValue != null) tv.text = strValue
         }
@@ -61,26 +64,25 @@ class MainActivity : AppCompatActivity()
         }
 
         // Ensure that system bars remain visible regardless of the background color.
-        // Must be done programmatically because it depends on the device theme at runtime
         manageSystemBarsAppearance(findViewById(R.id.cl))
     }
 
-    // Called when the system is about to kill the activity. This method
-    // allows you to save any dynamic INSTANCE state of the activity
-    // into the given Bundle, to be later received in onCreate(Bundle)
-    // when the activity will be re-created.
-    // Note: PERSISTENT state (which is different from instance state!)
-    // should be saved in the onPause() method because onSaveInstanceState()
-    // is not part of the life cycle callbacks, hence it will not be called
-    // in every situation
+    /**
+     * Chiamato dal sistema prima di distruggere l'activity per recuperare risorse
+     * o a causa di un cambio di configurazione (es. rotazione)
+     * * Permette di salvare lo "Instance State": informazioni associate a una specifica
+     * istanza dell'activity che devono sopravvivere alla ricreazione
+     */
     override fun onSaveInstanceState(outState: Bundle)
     {
-        // Note: with the implementation of this method inherited from
-        // AppCompatActivity, some widgets save their state in the bundle
-        // by default.
-        // Once the user interface contains AT LEAST one non-autosaving
-        // element, you should provide a custom implementation of the method
+        // Note: con l'implementazione di default di AppCompatActivity, alcuni widget
+        // salvano lo stato automaticamente. È necessario personalizzarlo per elementi non autosalvanti.
         super.onSaveInstanceState(outState)
+
+        /* * Salvataggio dello stato della TextView nel Bundle
+         * Questo stato verrà scartato se l'utente chiude l'app normalmente (es. tasto Back).
+         * Nota: Lo stato PERSISTENTE (es. preferenze utente) andrebbe salvato in onPause()
+         */
         outState.putString("strTV", tv.text.toString())
     }
 
