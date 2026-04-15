@@ -70,7 +70,8 @@ class FlowerAdapter(private val flowerList: Array<String>) :
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.flower_item, parent, false)
 
-        Log.v(mTAG, "onCreateViewHolder called")
+        // ViewHolders creati solo una volta
+        Log.v(mTAG, "creato un nuovo ViewHolder")
         return FlowerViewHolder(view)
     }
 
@@ -92,6 +93,7 @@ class FlowerAdapter(private val flowerList: Array<String>) :
     override fun onBindViewHolder(holder: FlowerViewHolder, position: Int) {
         // Popola la UI combinando l'indice e il nome del fiore
         holder.bind("$position - ${flowerList[position]}")
-        Log.v(mTAG, "onBindViewHolder called")
+        // update ogni volta che mostro di nuovo il singolo holder
+        Log.v(mTAG, "ViewHolder riempito di dati")
     }
 }
