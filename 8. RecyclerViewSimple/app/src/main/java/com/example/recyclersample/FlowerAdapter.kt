@@ -40,7 +40,8 @@ class FlowerAdapter(private val flowerList: Array<String>) :
 
         // Il riferimento alla TextView viene "cercato" e salvato una sola volta
         // al momento della creazione del ViewHolder.
-        private val flowerTextView: TextView = itemView.findViewById(R.id.flower_text)
+        private val flowerNumberTextView: TextView = itemView.findViewById(R.id.flower_number)
+        private val flowerNameTextView: TextView = itemView.findViewById(R.id.flower_text)
 
         /**
          * Associa i dati specifici di un fiore agli elementi visivi (UI).
@@ -49,9 +50,10 @@ class FlowerAdapter(private val flowerList: Array<String>) :
          *
          * @param word La stringa di testo da mostrare (es. l'indice e il nome del fiore).
          */
-        fun bind(word: String) {
-            // holder.bind("$position - ${flowerList[position]}")
-            flowerTextView.text = word
+        fun bind(index : Int, word: String) {
+
+            flowerNumberTextView.text = if (index < 9) "0${index.inc()}" else index.inc().toString()
+            flowerNameTextView.text = word
         }
     }
 
@@ -92,7 +94,10 @@ class FlowerAdapter(private val flowerList: Array<String>) :
      */
     override fun onBindViewHolder(holder: FlowerViewHolder, position: Int) {
         // Popola la UI combinando l'indice e il nome del fiore
-        holder.bind("${position + 1} - ${flowerList[position]}")
+
+        // val word = "${position + 1} - ${flowerList[position]}"
+        holder.bind(position, flowerList[position])
+
         // update ogni volta che mostro di nuovo il singolo holder
         Log.v(mTAG, "Fill ViewHolder @${holder.hashCode().toString(16)} with data")
     }

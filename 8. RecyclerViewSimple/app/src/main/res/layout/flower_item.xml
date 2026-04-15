@@ -14,17 +14,31 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- indice della lista -->
+    <TextView
+        android:id="@+id/flower_number"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="64dp"
+        android:text="TextView"
+        android:textSize="50sp"
+        tools:ignore="HardcodedText" />
+
+    <Space
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
+
     <!-- Add in TextView to display flower name -->
     <TextView
         android:id="@+id/flower_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="50sp"
         tools:ignore="HardcodedText" />
-</FrameLayout>
+</LinearLayout>
