@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JNI Hello With Button</string>
+    <string name="press_me">Press me</string>
+    <string name="please_press">Press the button, please</string>
+</resources>
