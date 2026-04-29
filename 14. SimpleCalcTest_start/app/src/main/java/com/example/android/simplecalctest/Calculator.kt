@@ -40,6 +40,8 @@ class Calculator {
      * Divide operation
      */
     fun div(firstOperand: Double, secondOperand: Double): Double {
+        // aggiunto controllo che il divisore non sia 0
+        require(secondOperand != 0.0) {"You cannot divide by zero"}
         return firstOperand / secondOperand
     }
 

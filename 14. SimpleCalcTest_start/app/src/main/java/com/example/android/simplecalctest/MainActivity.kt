@@ -66,7 +66,13 @@ class MainActivity : Activity() {
      * OnClick method called when the divide Button is pressed.
      */
     fun onDiv(view: View?) {
-        compute(Operator.DIV)
+        try { // aggiunto try/catch
+            compute(Operator.DIV)
+        } catch (e: IllegalArgumentException) {
+            Log.e(TAG, "IllegalArgumentException", e)
+            mResultTextView.text = getString(R.string.computationError)
+            return
+        }
     }
 
     /**
