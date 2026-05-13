@@ -20,6 +20,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.android.roomwordssample.data.Word
+import com.example.android.roomwordssample.data.WordRepository
+import com.example.android.roomwordssample.data.WordRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
